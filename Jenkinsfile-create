@@ -14,7 +14,7 @@ pipeline {
             steps {
                 script {
                     dir("terraform") {
-                        git "https://alinaveed1983/tf-Jenkins-EC2-Project2.git"
+                        git "https://github.com/alinaveed1983/tf-Jenkins-EC2-Project2.git"
                     }
                 }
             }
