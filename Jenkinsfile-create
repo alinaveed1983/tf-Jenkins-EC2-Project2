@@ -6,8 +6,7 @@ pipeline {
     }
 
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        // AWS credentials are assumed from the IAM role attached to the Jenkins instance
     }
 
     stages {
@@ -15,7 +14,7 @@ pipeline {
             steps {
                 script {
                     dir("terraform") {
-                        git "https://github.com/alinaveed1983/tf-Jenkins-EC2-Project2.git"
+                        git "https://alinaveed1983/tf-Jenkins-EC2-Project2.git"
                     }
                 }
             }
