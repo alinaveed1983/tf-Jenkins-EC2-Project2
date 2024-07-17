@@ -5,10 +5,6 @@ pipeline {
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
 
-    environment {
-        // AWS credentials are assumed from the IAM role attached to the Jenkins instance
-    }
-
     stages {
         stage('Checkout') {
             steps {
