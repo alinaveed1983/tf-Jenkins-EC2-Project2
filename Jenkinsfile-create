@@ -8,22 +8,16 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    dir("terraform") {
-                        git "https://github.com/alinaveed1983/tf-Jenkins-EC2-Project2.git"
-                    }
-                }
+                git branch: 'main', url: 'https://github.com/alinaveed1983/tf-Jenkins-EC2-Project2.git'
             }
         }
 
         stage('Plan') {
             steps {
                 script {
-                    dir("terraform") {
-                        sh 'terraform init'
-                        sh 'terraform plan -out=tfplan'
-                        sh 'terraform show -no-color tfplan > tfplan.txt'
-                    }
+                    sh 'terraform init'
+                    sh 'terraform plan -out=tfplan'
+                    sh 'terraform show -no-color tfplan > tfplan.txt'
                 }
             }
         }
@@ -36,7 +30,7 @@ pipeline {
             }
             steps {
                 script {
-                    def plan = readFile 'terraform/tfplan.txt'
+                    def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                 }
@@ -46,9 +40,7 @@ pipeline {
         stage('Apply') {
             steps {
                 script {
-                    dir("terraform") {
-                        sh 'terraform apply -input=false tfplan'
-                    }
+                    sh 'terraform apply -input=false tfplan'
                 }
             }
         }
